@@ -8,5 +8,7 @@
     'depends': [
         'base_setup'
     ],
+    'data': [],
+    'installable': True,
     'application': True,
 }
