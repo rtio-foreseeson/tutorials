@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    <record id="estate_test_model_action" model="ir.actions.act_window">
+    <record id="estate_property_menu_action" model="ir.actions.act_window">
         <field name="name">Add New Property</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">list,form</field>
@@ -20,12 +20,17 @@
                     </group>
                     <group>
                         <group>
-                            <field name="postcode" />
-                            <field name="expected_price" />
-                        </group>
-                        <group>
-                            <field name="date_available" />
-                            <field name="selling_price" />
+                            <group>
+                                <field name="type_id" />
+                                <field name="postcode" />
+                            </group>
+                            <group>
+                                <field name="expected_price" />
+                                <field name="date_available" />
+                            </group>
+                            <group>
+                                <field name="selling_price" />
+                            </group>
                         </group>
                     </group>
                     <notebook>
