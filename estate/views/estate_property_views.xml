@@ -62,6 +62,10 @@
                                     <field name="price" />
                                     <field name="partner_id" />
                                     <field name="status" />
+                                    <button name="accept_offer"
+                                        icon="fa-check" type="object" aria-label="Accept Offer" />
+                                    <button name="reject_offer"
+                                        icon="fa-times" type="object" aria-label="Reject Offer" />
                                     <field name="validity" />
                                     <field name="deadline_date" />
                                 </list>
