@@ -33,6 +33,7 @@
                             </group>
                             <group>
                                 <field name="selling_price" />
+                                <field name="best_offer" string="Best Offer" />
                             </group>
                         </group>
                     </group>
@@ -47,7 +48,17 @@
                                 <field name="has_garden" />
                                 <field name="garden_area" />
                                 <field name="garden_orientation" />
+                                <field name="total_area" string="Total Area (sq ft)" />
                             </group>
+                        </page>
+                        <page string="Offers">
+                            <field name="offer_ids" editable="bottom">
+                                <list>
+                                    <field name="price" />
+                                    <field name="partner_id" />
+                                    <field name="status" />
+                                </list>
+                            </field>
                         </page>
                         <page string="Other Info">
                             <group>
