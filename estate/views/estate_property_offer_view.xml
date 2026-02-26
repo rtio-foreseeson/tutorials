@@ -9,6 +9,8 @@
                 <field name="price" />
                 <field name="status" />
                 <field name="partner_id" />
+                <field name="validity" />
+                <field name="deadline_date" />
             </list>
         </field>
     </record>
@@ -24,6 +26,8 @@
                             <field name="price" />
                             <field name="status" />
                             <field name="partner_id" />
+                            <field name="validity" />
+                            <field name="deadline_date" />
                         </group>
                     </group>
                 </sheet>
