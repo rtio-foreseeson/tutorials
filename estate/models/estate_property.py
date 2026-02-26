@@ -68,3 +68,12 @@ class EstateProperty(models.Model):
                     if best_offer_so_far < price:
                         best_offer_so_far = price
             record.best_offer = best_offer_so_far
+
+    @api.onchange("has_garden")
+    def _onchange_has_garden(self):
+        if self.has_garden:
+            self.garden_area = 10
+            self.garden_orientation = "north"
+        else:
+            self.garden_area = None
+            self.garden_orientation = None
