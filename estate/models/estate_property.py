@@ -6,11 +6,24 @@ from datetime import timedelta
 if TYPE_CHECKING:
     from .estate_property_offer import EstatePropertyOffer
     from .estate_property_tag import EstatePropertyTag
+    from .estate_property_type import EstatePropertyType
 
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate Property"
+    _sql_constraints = [
+        (
+            "check_property_price_positive",
+            "CHECK(expected_price > 0)",
+            "Expected price must be positive.",
+        ),
+        (
+            "check_selling_price_positive",
+            "CHECK(selling_price > 0)",
+            "Selling price must be positive.",
+        ),
+    ]
 
     name = fields.Char("Property Name", required=True)
     description = fields.Char("Description")
@@ -49,7 +62,9 @@ class EstateProperty(models.Model):
         copy=False,
         default="new",
     )
-    type_id = fields.Many2one("estate.property.type", string="Property Type")
+    type_id: EstatePropertyType = fields.Many2one(
+        "estate.property.type", string="Property Type"
+    )
     buyer_id = fields.Many2one("res.partner", string="Buyer", copy=False)
     seller_id = fields.Many2one(
         "res.users", default=lambda self: self.env.user, string="Seller"
