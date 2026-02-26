@@ -1,11 +1,10 @@
-from odoo import fields, models
+from odoo import api, fields, models
 from datetime import timedelta
 
 
 class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Estate Property"
-    # _order = "sequence"
 
     name = fields.Char("Property Name", required=True)
     description = fields.Char("Description")
@@ -50,3 +49,22 @@ class EstateProperty(models.Model):
         "res.users", default=lambda self: self.env.user, string="Seller"
     )
     tag_ids = fields.Many2many("estate.property.tag", string="Property Tags")
+    offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offer")
+    total_area = fields.Float(compute="_get_total_area")
+    best_offer = fields.Float(compute="_get_best_offer")
+
+    @api.depends("living_area", "garden_area")
+    def _get_total_area(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+
+    @api.depends("offer_ids")
+    def _get_best_offer(self):
+        for record in self:
+            best_offer_so_far = 0
+            if len(record.offer_ids) > 0:
+                prices = record.offer_ids.mapped("price")
+                for price in prices:
+                    if best_offer_so_far < price:
+                        best_offer_so_far = price
+            record.best_offer = best_offer_so_far
