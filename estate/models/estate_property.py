@@ -1,5 +1,11 @@
+from __future__ import annotations
+from typing import List, TYPE_CHECKING
 from odoo import api, fields, models, exceptions
 from datetime import timedelta
+
+if TYPE_CHECKING:
+    from .estate_property_offer import EstatePropertyOffer
+    from .estate_property_tag import EstatePropertyTag
 
 
 class EstateProperty(models.Model):
@@ -48,8 +54,12 @@ class EstateProperty(models.Model):
     seller_id = fields.Many2one(
         "res.users", default=lambda self: self.env.user, string="Seller"
     )
-    tag_ids = fields.Many2many("estate.property.tag", string="Property Tags")
-    offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offer")
+    tag_ids: List[EstatePropertyTag] = fields.Many2many(
+        "estate.property.tag", string="Property Tags"
+    )
+    offer_ids: List[EstatePropertyOffer] = fields.One2many(
+        "estate.property.offer", "property_id", string="Offer"
+    )
     total_area = fields.Float(compute="_get_total_area")
     best_offer = fields.Float(compute="_get_best_offer")
 
